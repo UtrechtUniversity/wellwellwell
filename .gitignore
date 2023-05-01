@@ -1,3 +1,5 @@
 .venv
 .vscode
 .testdata
+scribble.py
+__pycache__

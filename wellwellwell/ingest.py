@@ -1,5 +1,14 @@
 """
 This module is a collection of methods to interpret multiple files with 96 well plate data and join them into a single long-fromat file.
+
+The output for all methods yields a polars Dataframe with the following columns:
+- source: the name of the file the data came from
+- time: the timepoint of the measurement
+- well: the well position on the plate
+- sample_id: a unique identifier for the well
+- rlu: the RLU value for the well at the given timepoint
+- position: the position of the well on the plate (1-12)
+- row: the row of the well on the plate (A-H)
 """
 import polars as pl
 import os
@@ -30,7 +39,7 @@ def read_well_grid_timeseries(path: str) -> pl.DataFrame:
         .melt(id_vars=["row", "source", "time"], variable_name="position", value_name="rlu")  # change orientation to long format
         .with_columns(
             pl.concat_str(pl.col("row"), pl.col("position")).alias("well"),  # Add well column
-            pl.concat_str(pl.col("source"), pl.lit("_"), pl.col("row"), pl.col("position")).alias("id")  # Add id column
+            pl.concat_str(pl.col("source"), pl.lit("_"), pl.col("row"), pl.col("position")).alias("sample_id")  # Add id column
         )
     )
 
