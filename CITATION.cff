@@ -1,0 +1,20 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: wellwellwell
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Donatas
+    family-names: Rasiukevicius
+    email: donatas@rasiukevicius.dev
+    orcid: 'https://orcid.org/0009-0006-3103-0108'
+repository-code: 'https://github.com/UtrechtUniversity/wellwellwell'
+abstract: Toolkit for processing data from 96 well plates
+keywords:
+  - ROS analysis
+  - 96 well plates
+license: GPL-3.0
