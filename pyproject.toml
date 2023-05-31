@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "wellwellwell"
 version = "0.1.0"
-description = ""
+description = "Toolkit for analyzing 96-well plate data"
 authors = ["Donatas Rasiukevicius <d.rasiukevicius@uu.nl>"]
-readme = "README.md"
+readme = "readme.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
