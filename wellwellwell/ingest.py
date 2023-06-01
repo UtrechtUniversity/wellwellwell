@@ -49,3 +49,36 @@ def read_well_grid_timeseries_folder(dir_path: str) -> pl.DataFrame:
     filenames = (os.path.join(dir_path, f) for f in os.listdir(dir_path))
     frames = [read_well_grid_timeseries(f) for f in filenames]
     return pl.concat(frames)
+
+
+def read_well_wide_timeseries(path: str) -> pl.DataFrame:
+    """Given an input of space-separated records in wide format, return a long-format table for each well with the time and the value and position of the value on the well plate."""
+    filename = Path(path).stem
+    df = pl.read_csv(path, separator=" ")
+    df = df.drop_nulls()
+    id_vars = ["row", "position", "source", "treatment", "line_id", "experiment", "day"]
+    df = (
+        df
+        .with_columns(
+            pl.col("Well").str.slice(0, 1).alias("row"),
+            pl.col("Well").str.slice(2, 3).alias("position").cast(pl.Int32),
+            pl.lit(filename).alias("source"),
+        )
+        .rename(
+            {
+                "Treatment": "treatment",
+                "LineID": "line_id",
+                "Experiment": "experiment",
+                "Day": "day",
+            }
+        )
+        .drop(["Well", "PlateID"])
+        .melt(id_vars=id_vars, variable_name="time", value_name="rlu")
+        .with_columns(
+            pl.col("time").cast(pl.Float32),
+            pl.col("rlu").cast(pl.Int32),
+            pl.concat_str(pl.col("row"), pl.col("position")).alias("well"),
+            pl.concat_str(pl.col("source"), pl.lit("_"), pl.col("row"), pl.col("position")).alias("sample_id")
+        )
+    )
+    return df
