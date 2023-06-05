@@ -82,3 +82,10 @@ def read_well_wide_timeseries(path: str) -> pl.DataFrame:
         )
     )
     return df
+
+
+def read_well_wide_timeseries_folder(dir_path: str) -> pl.DataFrame:
+    """Given a folder of well grid time series files, interpret them to a single Data Frame"""
+    filenames = (os.path.join(dir_path, f) for f in os.listdir(dir_path))
+    frames = [read_well_wide_timeseries(f) for f in filenames]
+    return pl.concat(frames)
