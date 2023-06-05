@@ -11,6 +11,8 @@ polars = "^0.17.9"
 xlsx2csv = "^0.8.1"
 seaborn = "^0.12.2"
 numpy = "^1.24.3"
+ipykernel = "^6.23.1"
+pyarrow = "^12.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
