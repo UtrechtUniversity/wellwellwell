@@ -99,7 +99,7 @@ def plate_control_background(df: pl.DataFrame, control_df: pl.DataFrame, columns
 
 
 def plate_control_fold_change(df: pl.DataFrame, control_df: pl.DataFrame, columns=["rlu", "rlu_dx"]) -> pl.DataFrame:
-    """Subtract the background of the control from the data in the provided columns
+    """Use the background of the control  to divide the value from the data in the provided columns
 
     This normalization is useful to provide relative comparisons to a control. Unlike the background method, this can be used to evaluate treated controls too. Consider the following data:
     sample_id | time | rlu | rlu_dx
